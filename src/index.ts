@@ -14,6 +14,7 @@ const allowedOrigins = [
     "http://localhost:3000", // Swagger UI (if hosted here)
     "http://localhost:5000",
     "https://your-frontend.com", // Real frontend domain (prod)
+    "https://swagger-rh50.onrender.com",
 ];
 
 const corsOptions: CorsOptions = {
