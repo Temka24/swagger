@@ -1,8 +1,7 @@
-import express, { Express } from "express";
+import express, { Express, Request, Response } from "express";
 import cors, { CorsOptions } from "cors";
 import dotenv from "dotenv";
 import { errorHandler } from "./middleware/errorHandler.js";
-import { Response } from "express";
 import userRoutes from "./routes/user.routes.js";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./docs/swagger.js";
@@ -33,7 +32,7 @@ const corsOptions: CorsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.get("/ping", (_, res: Response) => {
+app.get("/ping", (_: Request, res: Response) => {
     res.json({ msg: "Success to ping" });
 });
 app.use("/api/user", userRoutes);
