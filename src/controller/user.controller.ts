@@ -7,7 +7,7 @@ interface Params {
     id: string;
 }
 
-export const getUsers = async (_: Request, res: Response, next: NextFunction) => {
+export const getUsers = async (_req: Request, res: Response, next: NextFunction) => {
     try {
         const users = await prisma.user.findMany();
         res.json({ users });

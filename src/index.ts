@@ -1,5 +1,5 @@
 import express, { Express } from "express";
-import cors from "cors";
+import cors, { CorsOptions } from "cors";
 import dotenv from "dotenv";
 import { errorHandler } from "./middleware/errorHandler.js";
 import { Response } from "express";
@@ -17,18 +17,20 @@ const allowedOrigins = [
     "https://your-frontend.com", // Real frontend domain (prod)
 ];
 
-app.use(
-    cors({
-        origin: (origin, callback) => {
-            if (!origin || allowedOrigins.includes(origin)) {
-                callback(null, true);
-            } else {
-                callback(new Error("Not allowed by CORS"));
-            }
-        },
-        credentials: true,
-    }),
-);
+const corsOptions: CorsOptions = {
+    origin: (
+        origin: string | undefined,
+        callback: (err: Error | null, allow?: boolean) => void,
+    ) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/ping", (_, res: Response) => {
